@@ -13,3 +13,4 @@ public interface TransactionDao extends JpaRepository<Transaction, Integer>{
 	public List<Transaction> findAllTransactionsByWalletId(Integer id);
 	
 }
+ 
