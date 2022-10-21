@@ -23,6 +23,7 @@ public class WalletServiceImpl implements WalletService{
 	@Autowired
 	private TransactionDao transactionDao;
 	
+	@Autowired
 	private GetCurrentLoginUserSessionDetails currentsessiondao;
 
 	@Override
