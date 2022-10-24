@@ -10,6 +10,7 @@ import com.pbajait.app.entity.Wallet;
 import com.pbajait.app.exception.NotFoundException;
 import com.pbajait.app.exception.UserAlreadyExistWithMobileNumber;
 import com.pbajait.app.repository.CustomerDao;
+import com.pbajait.app.repository.WalletDao;
 import com.pbajait.app.util.GetCurrentLoginUserSessionDetails;
 
 @Service
@@ -20,6 +21,9 @@ public class CustomerServiceImpl implements CustomerService{
 	
 	@Autowired
 	private GetCurrentLoginUserSessionDetails getCurrentLoginUser;
+	
+	@Autowired
+	private WalletDao dao;
 	
 	@Override
 	public Customer createCustomer(Customer customer) {
@@ -32,11 +36,17 @@ public class CustomerServiceImpl implements CustomerService{
 		
 		Wallet wallet = new Wallet();
 		wallet.setWalletBalance(0.0);
-		wallet.setCustomer(customer);
+//		wallet.setCustomer(customer);
 		
-		customer.setWallet(wallet);
 		
-		return  customerDAO.save(customer);
+		
+		Wallet wal = dao.save(wallet);
+		customer.setWallet(wal);
+		Customer cust = customerDAO.save(customer);
+		
+		
+		
+		return  cust;
 	}
 
 	@Override

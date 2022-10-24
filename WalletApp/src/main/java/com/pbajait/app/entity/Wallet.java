@@ -23,9 +23,6 @@ public class Wallet {
 	private Integer walletId ;
 
 	private Double walletBalance;
-	
-	@OneToOne(cascade =  CascadeType.ALL)
-	private Customer customer;
 
 	@JsonIgnore
 	@OneToMany

@@ -11,6 +11,6 @@ public class CustomerDTO {
 	@Size(min=10,max=10,message = "{moblie.invalid}")
 	private String mobileNo;
 	
-	@Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,12}$",message = "{password.invalid}") 
+	@Size(min = 3, max = 10, message = "Password must be min size of 3 characters and max of 10 characters")
 	private String password;
 }

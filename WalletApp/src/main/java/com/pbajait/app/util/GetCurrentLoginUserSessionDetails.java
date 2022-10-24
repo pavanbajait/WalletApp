@@ -11,7 +11,7 @@ public interface GetCurrentLoginUserSessionDetails {
 	
 	public Integer getCurrentUserSessionId(String key) throws NotFoundException;
 	
-	public Customer getCurrentCustomer(String key) throws NotFoundException;
+//	public Customer getCurrentCustomer(String key) throws NotFoundException;
 	
 	public Wallet getCurrentUserWallet(String key) throws NotFoundException;
 	

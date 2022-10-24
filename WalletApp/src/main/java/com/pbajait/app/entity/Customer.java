@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -26,13 +27,14 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer customerId;
 	
-	@NotBlank
+	@NotEmpty
+	@Size(min = 5, message = "Name must be min of 5 characters")
 	private String name;
 	
 	@Size(min=10,max=10,message = "{moblie.invalid}")
 	private String mobileNo;
 	
-	//@Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,100}$",message = "{password.invalid}")
+	@Size(min = 3, max = 10, message = "Password must be min size of 3 characters and max of 10 characters")
 	private String password;
 	
 	@Email(message = "{email.invalid}")
@@ -40,7 +42,7 @@ public class Customer {
 	private String email;
 
 	@JsonIgnore
-	@OneToOne(optional = false, cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Wallet wallet;
 
 }
