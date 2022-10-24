@@ -3,6 +3,8 @@ package com.pbajait.app.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,14 +23,16 @@ public class LoginController {
 
 	// for user Login
 	@PostMapping(value = "/login")
-	public String logInCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
-		return customerLogIn.logIntoAccount(customerDTO);
+	public ResponseEntity<String> logInCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
+		String res = customerLogIn.logIntoAccount(customerDTO);
+		return new ResponseEntity<String>(res, HttpStatus.OK);
 	}
 	
 	// for user Logout
 	@PatchMapping(value = "/logout")
-	public String logOutCustomer(@RequestParam(required = false) String key) {
-		return customerLogIn.logOutFromAccount(key);
+	public ResponseEntity<String> logOutCustomer(@RequestParam(required = false) String key) {
+		String res = customerLogIn.logOutFromAccount(key);
+		return new ResponseEntity<String>(res, HttpStatus.OK);
 	}
 
 }

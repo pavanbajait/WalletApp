@@ -4,6 +4,8 @@ package com.pbajait.app.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,26 +28,34 @@ public class CustomerController {
 	
 	// to register user
 	@PostMapping(value = "/customer")
-	public Customer saveCustomer(@Valid @RequestBody Customer customer) {
-		return customerServiceImpl.createCustomer(customer);
+	public ResponseEntity<Customer> saveCustomer(@Valid @RequestBody Customer customer) {
+		Customer cust = customerServiceImpl.createCustomer(customer);
+		return new ResponseEntity<Customer>(cust,HttpStatus.CREATED);
 	}
 	
 	// To update existing user details by passing its login key
 	@PutMapping(value = "/customer")
-	public Customer updateCustomer(@Valid @RequestBody Customer customer, @RequestParam(required = false) String key) {
-		return customerServiceImpl.updateCustomer(customer, key);
+	public ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer, @RequestParam(required = false) String key) {
+		Customer cust =  customerServiceImpl.updateCustomer(customer, key);
+		return new ResponseEntity<Customer>(cust,HttpStatus.ACCEPTED);
 	}
 	
 	// To delete existing user details by passing its login key
 	@DeleteMapping(value = "/customer")
-	public Customer deleteCustomer(@RequestParam(required = false) String key) {
-		return customerServiceImpl.deleteCustomer(key);
+	public ResponseEntity<String> deleteCustomer(@RequestParam(required = false) String key) {
+		Customer cust = customerServiceImpl.deleteCustomer(key);
+		if (cust == null) {
+			return new ResponseEntity<String>("Deleted Successfully", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("Problem in deleting", HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	// To get details of current user by passing its login key
 	@GetMapping(value = "/customer")
-	public Customer getCustomerDetails(@RequestParam(required = false) String key) {
-		return customerServiceImpl.getCustomerDetails(key);
+	public ResponseEntity<Customer> getCustomerDetails(@RequestParam(required = false) String key) {
+		Customer cust = customerServiceImpl.getCustomerDetails(key);
+		return new ResponseEntity<Customer>(cust,HttpStatus.OK);
 	}
 	
 }

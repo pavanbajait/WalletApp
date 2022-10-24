@@ -3,6 +3,8 @@ package com.pbajait.app.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +19,9 @@ public class TransactionController {
 	private TransactionService service;
 	
 	@GetMapping("/getAllTransactionHistory")
-	public List<Transaction> getAllTransactionHistory(@RequestParam String key){
-		return service.getAllTransaction(key);
+	public ResponseEntity<List<Transaction>> getAllTransactionHistory(@RequestParam String key){
+		List<Transaction> list = service.getAllTransaction(key);
+		return new ResponseEntity<List<Transaction>>(list,HttpStatus.OK);
 	}
 	
 }

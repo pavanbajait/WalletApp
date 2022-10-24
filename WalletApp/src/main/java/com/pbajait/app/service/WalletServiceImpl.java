@@ -26,11 +26,13 @@ public class WalletServiceImpl implements WalletService{
 	@Autowired
 	private GetCurrentLoginUserSessionDetails currentsessiondao;
 
+
 	@Override
-	public double showWalletBalance(String key) {
+	public String showWalletBalance(String key) {
 		Double balance = currentsessiondao.getCurrentUserWallet(key).getWalletBalance();
-		return balance;
+		return balance+" amount balanced..";
 	}
+	
 	
 
 	@Override
