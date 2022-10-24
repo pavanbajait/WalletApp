@@ -31,7 +31,7 @@ public class CustomerLogInImpl implements CustomerLogin{
 	private GetCurrentLoginUserSessionDetails getCurrentLoginUser;
 	
 	@Override
-	public String logIntoAccount(CustomerDTO customerDTO) {
+	public String logIntoAccount(CustomerDTO customerDTO) throws NotFoundException{
 		
 		Optional<Customer> opt = customerDAO.findByMobileNo(customerDTO.getMobileNo());
 		Customer newCustomer = opt.get();

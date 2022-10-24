@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pbajait.app.entity.CustomerDTO;
+import com.pbajait.app.exception.NotFoundException;
 import com.pbajait.app.service.CustomerLogInImpl;
 import com.pbajait.app.service.CustomerLogin;
 
@@ -23,7 +24,7 @@ public class LoginController {
 
 	// for user Login
 	@PostMapping(value = "/login")
-	public ResponseEntity<String> logInCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
+	public ResponseEntity<String> logInCustomer(@Valid @RequestBody CustomerDTO customerDTO) throws NotFoundException{
 		String res = customerLogIn.logIntoAccount(customerDTO);
 		return new ResponseEntity<String>(res, HttpStatus.OK);
 	}
